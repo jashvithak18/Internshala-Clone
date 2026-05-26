@@ -287,17 +287,17 @@ const Auth = () => {
               ) : (
                 <div className="space-y-4">
                   <div>
-                    <label className="text-xs text-slate-400 font-semibold mb-2 block uppercase tracking-wider">
+                    <label className="text-xs text-slate-500 font-semibold mb-2 block uppercase tracking-wider">
                       Email or Phone Number
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                       <input
                         type="text"
                         required
                         value={resetIdentifier}
                         onChange={(e) => setResetIdentifier(e.target.value)}
-                        className="w-full bg-slate-950/50 border border-slate-800 focus:border-indigo-500 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none"
+                        className="w-full bg-slate-50 border border-slate-200 focus:border-brand-500 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none text-slate-800"
                         placeholder="email@domain.com or +91999..."
                       />
                     </div>

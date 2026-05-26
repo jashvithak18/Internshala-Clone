@@ -4,24 +4,23 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class', // supports explicit class switching if needed, but defaults to slate dark theme
   theme: {
     extend: {
       colors: {
         brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          900: '#312e81',
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          500: '#008BDC', // Signature Internshala Blue
+          600: '#0077c0', // Slightly darker hover blue
+          700: '#0065a3',
+          900: '#0c4a6e',
         },
-        dark: {
-          bg: '#0f172a',      // Slate 900
-          card: '#1e293b',    // Slate 800
-          border: '#334155',  // Slate 700
-          text: '#f8fafc',    // Slate 50
-          muted: '#94a3b8'    // Slate 400
+        light: {
+          bg: '#f8fafc',      // Slate 50/100 soft background
+          card: '#ffffff',    // Plain white card
+          border: '#e2e8f0',  // Slate 200 light border
+          text: '#1e293b',    // Slate 800 high-contrast text
+          muted: '#64748b'    // Slate 500 gray text
         }
       },
       fontFamily: {

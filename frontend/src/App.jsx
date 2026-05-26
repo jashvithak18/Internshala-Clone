@@ -132,8 +132,8 @@ const App = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-400 gap-4 font-sans">
-        <Loader2 className="animate-spin text-indigo-500" size={48} />
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-slate-600 gap-4 font-sans">
+        <Loader2 className="animate-spin text-brand-500" size={48} />
         <p className="text-xs uppercase tracking-widest font-semibold text-slate-500">
           Loading Elevance MERN Systems...
         </p>
@@ -143,7 +143,7 @@ const App = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-slate-950 min-h-screen flex flex-col justify-center selection:bg-indigo-500 selection:text-white font-sans text-slate-100">
+      <div className="bg-slate-100 min-h-screen flex flex-col justify-center selection:bg-brand-500 selection:text-white font-sans text-slate-700">
         <Auth />
       </div>
     );
@@ -181,10 +181,10 @@ const App = () => {
   const isMobileBlocked = isMobileDevice && !isMobileAccessHour;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex overflow-hidden">
       
       {/* 1. SIDEBAR NAVIGATION */}
-      <aside className={`shrink-0 bg-slate-900 border-r border-slate-800 transition-all duration-300 flex flex-col justify-between z-40 ${
+      <aside className={`shrink-0 bg-white border-r border-slate-200 transition-all duration-300 flex flex-col justify-between z-40 ${
         sidebarOpen ? 'w-64' : 'w-20'
       }`}>
         <div className="space-y-6 py-6 px-4">
@@ -192,23 +192,23 @@ const App = () => {
           <div className="flex items-center justify-between">
             {sidebarOpen && (
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+                <div className="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/20 text-brand-500 flex items-center justify-center font-bold">
                   🎓
                 </div>
-                <span className="font-extrabold Outfit text-sm uppercase tracking-wider text-slate-100">
+                <span className="font-extrabold Outfit text-sm uppercase tracking-wider text-slate-800">
                   Internshala
                 </span>
               </div>
             )}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-1.5 rounded-lg bg-slate-950/40 border border-slate-800 text-slate-400 hover:text-white mx-auto transition-colors"
+              className="p-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-900 mx-auto transition-colors"
             >
               <Menu size={16} />
             </button>
           </div>
 
-          <hr className="border-slate-800" />
+          <hr className="border-slate-100" />
 
           {/* Navigation Links */}
           <nav className="space-y-1.5">
@@ -226,12 +226,12 @@ const App = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
                     active
-                      ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/10'
-                      : 'text-slate-400 hover:bg-slate-850 hover:text-slate-200'
+                      ? 'bg-brand-500 text-white shadow-md shadow-brand-500/10'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                   }`}
                   title={tab.label}
                 >
-                  <Icon size={16} className={active ? 'text-white' : 'text-slate-500'} />
+                  <Icon size={16} className={active ? 'text-white' : 'text-slate-400'} />
                   {sidebarOpen && <span className="truncate">{tab.label}</span>}
                 </button>
               );
@@ -242,22 +242,22 @@ const App = () => {
         {/* User logout footer */}
         <div className="p-4 space-y-4">
           {sidebarOpen && (
-            <div className="bg-slate-950/40 p-3.5 rounded-2xl border border-slate-850 flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 font-extrabold flex items-center justify-center text-xs shadow">
+            <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 text-brand-500 font-extrabold flex items-center justify-center text-xs shadow">
                 {user?.name?.charAt(0).toUpperCase()}
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-slate-200 truncate">{user?.name}</p>
-                <p className="text-[9px] text-slate-500 font-mono truncate">{user?.role === 'employer' ? 'Recruiter' : 'Candidate'}</p>
+                <p className="text-xs font-bold text-slate-800 truncate">{user?.name}</p>
+                <p className="text-[9px] text-slate-400 font-mono truncate">{user?.role === 'employer' ? 'Recruiter' : 'Candidate'}</p>
               </div>
             </div>
           )}
 
           <button
             onClick={logout}
-            className="w-full flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:bg-rose-500/10 hover:text-rose-400 rounded-xl text-xs font-bold uppercase tracking-wider transition-all"
+            className="w-full flex items-center gap-3.5 px-4 py-3 text-slate-500 hover:bg-rose-50 hover:text-rose-600 rounded-xl text-xs font-bold uppercase tracking-wider transition-all"
           >
-            <LogOut size={16} className="text-slate-500" />
+            <LogOut size={16} className="text-slate-450" />
             {sidebarOpen && <span>{t('logout')}</span>}
           </button>
         </div>
@@ -266,10 +266,10 @@ const App = () => {
       {/* 2. MAIN HEADER & ROUTE DRAWER VIEWPORTS */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Unified Header */}
-        <header className="shrink-0 bg-slate-900 border-b border-slate-800 h-16 px-6 flex items-center justify-between z-30">
+        <header className="shrink-0 bg-white border-b border-slate-200 h-16 px-6 flex items-center justify-between z-30 shadow-sm">
           <div className="flex items-center gap-2">
-            <Shield className="text-indigo-500" size={16} />
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden md:inline">
+            <Shield className="text-brand-500" size={16} />
+            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest hidden md:inline">
               Secure Internship Platform
             </span>
           </div>
@@ -280,9 +280,9 @@ const App = () => {
             <div className="relative">
               <button
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="bg-slate-950/60 border border-slate-800 hover:bg-slate-850 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
+                className="bg-slate-50 border border-slate-200 hover:bg-slate-100 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 flex items-center gap-1.5 transition-colors"
               >
-                <Globe size={13} className="text-indigo-400" />
+                <Globe size={13} className="text-brand-500" />
                 <span>{langNames[i18n.language] || 'Language'}</span>
               </button>
 
@@ -292,14 +292,14 @@ const App = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-44 bg-slate-900 border border-slate-700/80 rounded-2xl shadow-xl overflow-hidden py-1 z-50 text-xs"
+                    className="absolute right-0 mt-2 w-44 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden py-1 z-50 text-xs"
                   >
                     {Object.keys(langNames).map((langCode) => (
                       <button
                         key={langCode}
                         onClick={() => handleLangChange(langCode)}
-                        className={`w-full text-left px-4 py-2 hover:bg-slate-800 transition-colors flex items-center justify-between ${
-                          i18n.language === langCode ? 'text-indigo-400 font-bold' : 'text-slate-300'
+                        className={`w-full text-left px-4 py-2 hover:bg-slate-50 transition-colors flex items-center justify-between ${
+                          i18n.language === langCode ? 'text-brand-500 font-bold' : 'text-slate-700'
                         }`}
                       >
                         <span>{langNames[langCode]}</span>
@@ -315,7 +315,7 @@ const App = () => {
             <div className="relative">
               <button
                 onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
-                className="relative p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-400 hover:text-white transition-all"
+                className="relative p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-900 transition-all"
               >
                 <Bell size={15} />
                 {unreadNotifCount > 0 && (
@@ -329,20 +329,20 @@ const App = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-80 bg-slate-900 border border-slate-750 rounded-2xl shadow-2xl overflow-hidden z-50 text-xs"
+                    className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden z-50 text-xs"
                   >
-                    <div className="bg-slate-850 p-3 border-b border-slate-750 flex justify-between items-center">
-                      <span className="font-bold Outfit text-indigo-300 uppercase tracking-wider">Activity Notifications</span>
+                    <div className="bg-slate-55 p-3 border-b border-slate-200 flex justify-between items-center">
+                      <span className="font-bold Outfit text-brand-500 uppercase tracking-wider">Activity Notifications</span>
                       {unreadNotifCount > 0 && (
                         <button
                           onClick={markAllNotificationsAsRead}
-                          className="text-[10px] text-indigo-400 hover:underline font-semibold"
+                          className="text-[10px] text-brand-500 hover:underline font-semibold"
                         >
                           Mark all as read
                         </button>
                       )}
                     </div>
-                    <div className="max-h-64 overflow-y-auto divide-y divide-slate-850">
+                    <div className="max-h-64 overflow-y-auto divide-y divide-slate-100">
                       {notifications.length === 0 ? (
                         <p className="text-center text-slate-500 py-6 italic">No activity updates.</p>
                       ) : (
@@ -351,7 +351,7 @@ const App = () => {
                             key={n._id}
                             onClick={() => markNotificationAsRead(n._id)}
                             className={`p-3 cursor-pointer transition-colors ${
-                              n.isRead ? 'bg-slate-900/40 text-slate-400' : 'bg-indigo-950/10 text-slate-200 border-l-2 border-indigo-500'
+                              n.isRead ? 'bg-white text-slate-400 hover:bg-slate-50' : 'bg-brand-50/30 text-slate-800 border-l-2 border-brand-500 font-medium hover:bg-brand-50/50'
                             }`}
                           >
                             <p className="text-[11px] leading-relaxed">{n.message}</p>
@@ -370,21 +370,21 @@ const App = () => {
         </header>
 
         {/* Dynamic Route viewport container */}
-        <main className="flex-1 overflow-y-auto p-6 md:p-8 bg-slate-950">
+        <main className="flex-1 overflow-y-auto p-6 md:p-8 bg-slate-50">
           {isMobileBlocked ? (
             /* EMERGENCY ACCESS BLOCK FOR MOBILE OUTSIDE ALLOWED IST SLOT */
             <div className="min-h-[70vh] flex items-center justify-center p-4">
-              <div className="glass-premium rounded-3xl p-10 text-center border border-rose-500/15 max-w-lg space-y-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-rose-500/10 border border-rose-500/20 text-rose-400 mb-1">
+              <div className="bg-white rounded-3xl p-10 text-center border border-rose-200 shadow-lg max-w-lg space-y-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-rose-50 border border-rose-100 text-rose-500 mb-1">
                   <Shield size={32} />
                 </div>
-                <h2 className="text-2xl font-bold Outfit text-rose-400 uppercase tracking-wide">Mobile Access Intercepted</h2>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <h2 className="text-2xl font-bold Outfit text-rose-500 uppercase tracking-wide">Mobile Access Intercepted</h2>
+                <p className="text-sm text-slate-650 leading-relaxed">
                   As per platform guidelines, mobile device client access is permitted strictly between **10:00 AM and 1:00 PM IST**.
                 </p>
-                <div className="bg-slate-950/60 border border-slate-800 p-4 rounded-2xl text-xs space-y-2 text-left max-w-sm mx-auto font-mono text-indigo-300">
-                  <p className="flex justify-between"><span>Current Simulated Time:</span> <span className="font-bold text-slate-100">{istTime.hours} IST</span></p>
-                  <p className="flex justify-between"><span>Permitted Slot:</span> <span className="font-bold text-emerald-400">10:00 AM - 1:00 PM IST</span></p>
+                <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl text-xs space-y-2 text-left max-w-sm mx-auto font-mono text-slate-700">
+                  <p className="flex justify-between"><span>Current Simulated Time:</span> <span className="font-bold text-slate-900">{istTime.hours} IST</span></p>
+                  <p className="flex justify-between"><span>Permitted Slot:</span> <span className="font-bold text-brand-500">10:00 AM - 1:00 PM IST</span></p>
                 </div>
               </div>
             </div>
@@ -403,43 +403,43 @@ const App = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-slate-900 border border-slate-700/80 p-6 rounded-3xl max-w-md w-full shadow-2xl space-y-6"
+              className="bg-white border border-slate-200 p-6 rounded-3xl max-w-md w-full shadow-2xl space-y-6 text-slate-800"
             >
-              <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 className="font-bold Outfit text-base uppercase tracking-wider text-indigo-300 flex items-center gap-1.5">
+              <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+                <h3 className="font-bold Outfit text-base uppercase tracking-wider text-brand-500 flex items-center gap-1.5">
                   <Globe size={18} />
                   Sécurité - French Language Switch
                 </h3>
                 <button
                   onClick={() => setFrenchModalOpen(false)}
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-slate-400 hover:text-slate-600 transition-colors"
                 >
                   <X size={18} />
                 </button>
               </div>
 
               {frenchError && (
-                <div className="bg-rose-500/10 border border-rose-500/20 p-3 rounded-xl text-xs text-rose-400">
+                <div className="bg-rose-50 border border-rose-100 p-3 rounded-xl text-xs text-rose-600">
                   {frenchError}
                 </div>
               )}
 
               {frenchSuccess && (
-                <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-xl text-xs text-emerald-400">
+                <div className="bg-emerald-550 border border-emerald-100 p-3 rounded-xl text-xs text-emerald-600">
                   {frenchSuccess}
                 </div>
               )}
 
               {frenchEmailPreview && (
-                <div className="bg-indigo-950/40 border border-indigo-900 p-3 rounded-xl text-center">
-                  <p className="text-[11px] text-slate-400 mb-1.5 font-medium">
+                <div className="bg-brand-50/50 border border-brand-100 p-3 rounded-xl text-center">
+                  <p className="text-[11px] text-slate-600 mb-1.5 font-medium">
                     📬 SMTP Ethereal Local Sandbox Alert: French OTP security email dispatched!
                   </p>
                   <a
                     href={frenchEmailPreview}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] text-indigo-400 hover:text-indigo-300 font-bold hover:underline"
+                    className="inline-flex items-center gap-1 text-[11px] text-brand-500 hover:text-brand-600 font-bold hover:underline"
                   >
                     Open Mock Mailroom Box
                     <ExternalLink size={11} />
@@ -449,7 +449,7 @@ const App = () => {
 
               <form onSubmit={handleVerifyFrenchOtp} className="space-y-4">
                 <div>
-                  <label className="text-[10px] text-slate-400 font-semibold mb-1 block uppercase tracking-wider">
+                  <label className="text-[10px] text-slate-500 font-semibold mb-1 block uppercase tracking-wider">
                     Enter the 6-Digit French Switch OTP
                   </label>
                   <input
@@ -458,7 +458,7 @@ const App = () => {
                     maxLength={6}
                     value={frenchOtp}
                     onChange={(e) => setFrenchOtp(e.target.value.replace(/\D/g, ''))}
-                    className="w-full text-center tracking-[1em] text-sm font-mono bg-slate-950/60 border border-slate-800 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-indigo-300 focus:outline-none"
+                    className="w-full text-center tracking-[1em] text-sm font-mono bg-white border border-slate-200 focus:border-brand-500 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none"
                     placeholder="000000"
                   />
                 </div>

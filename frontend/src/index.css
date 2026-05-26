@@ -4,47 +4,43 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 antialiased font-sans scroll-smooth;
+    @apply bg-slate-50 text-slate-800 antialiased font-sans scroll-smooth;
   }
 }
 
-/* Glassmorphism Styles */
+/* Premium Light-Theme Card Styles */
 .glass {
-  background: rgba(30, 41, 59, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
 .glass-premium {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(99, 102, 241, 0.15);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+  border: 1px solid rgba(0, 139, 220, 0.2);
+  box-shadow: 0 4px 20px 0 rgba(0, 139, 220, 0.05);
 }
 
 .glass-card {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.3);
+  border-color: rgba(0, 139, 220, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.1);
+  box-shadow: 0 20px 40px -10px rgba(0, 139, 220, 0.08), 0 4px 15px -2px rgba(0, 0, 0, 0.03);
 }
 
-/* Neon Glows & Gradients */
+/* Internshala Blue Gradient & Premium Buttons */
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-sky-500 to-indigo-600;
 }
 
 .btn-premium {
-  @apply relative overflow-hidden transition-all duration-300 rounded-xl font-medium tracking-wide shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-95;
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #4338ca 100%);
+  @apply relative overflow-hidden transition-all duration-300 rounded-xl font-semibold tracking-wide shadow-md shadow-brand-500/10 hover:shadow-brand-500/20 active:scale-95 text-white;
+  background: linear-gradient(135deg, #008BDC 0%, #007ac2 100%);
 }
 
 .btn-premium::after {
@@ -56,24 +52,24 @@
   @apply opacity-100;
 }
 
-/* Scrollbar Adjustments */
+/* Light Theme Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 9999px;
-  border: 2px solid #090d16;
+  border: 2px solid #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }
 
 /* Page Slide Up Animation */

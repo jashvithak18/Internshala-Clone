@@ -17,8 +17,11 @@ import {
   Trash2,
   Lock,
   Sparkles,
-  X
+  X,
+  Copy,
+  Check
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 const ResumeBuilder = () => {
@@ -55,6 +58,11 @@ const ResumeBuilder = () => {
   const [otpValue, setOtpValue] = useState('');
   const [otpVerified, setOtpVerified] = useState(false);
   const [emailPreviewUrl, setEmailPreviewUrl] = useState('');
+
+  // PhonePe Checkout states
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [utr, setUtr] = useState('');
+  const [copySuccess, setCopySuccess] = useState(false);
 
   // Load existing resume and check payment logs on boot
   useEffect(() => {
@@ -139,6 +147,7 @@ const ResumeBuilder = () => {
     try {
       const res = await apiCall('POST', '/api/resume/pay');
       setHasPaid(true);
+      setShowPaymentModal(false); // Close payment modal
       if (res.data.previewUrl) {
         setEmailPreviewUrl(res.data.previewUrl);
       }
@@ -314,7 +323,7 @@ const ResumeBuilder = () => {
             <Lock size={32} />
           </div>
           <h2 className="text-2xl font-bold Outfit text-slate-800">Premium Feature Locked</h2>
-          <p className="text-sm text-slate-650 leading-relaxed">
+          <p className="text-sm text-slate-655 leading-relaxed">
             The professional Resume Builder is reserved exclusively for premium subscribers. Please buy our Bronze, Silver, or Gold internship plans to unlock premium tools!
           </p>
           <div className="pt-2">
@@ -331,7 +340,7 @@ const ResumeBuilder = () => {
       ) : !hasPaid ? (
         /* OTP & ₹50 CHECKOUT FOR PREMIUM USERS */
         <div className="glass-premium rounded-3xl p-10 text-center max-w-2xl mx-auto space-y-6 text-slate-800">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-amber-50 border border-amber-250 text-amber-600 mb-2">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-amber-55 border border-amber-250 text-amber-600 mb-2">
             <Sparkles size={32} />
           </div>
           <div>
@@ -359,7 +368,7 @@ const ResumeBuilder = () => {
             ) : !otpVerified ? (
               <form onSubmit={handleVerifyOtp} className="space-y-4 text-left">
                 <div>
-                  <label className="text-[10px] text-slate-500 font-semibold mb-1 block uppercase tracking-wider">
+                  <label className="text-xs text-slate-500 font-semibold mb-2 block uppercase tracking-wider">
                     Enter OTP sent to registered email
                   </label>
                   <input
@@ -395,7 +404,12 @@ const ResumeBuilder = () => {
                 ) : null}
 
                 <button
-                  onClick={handlePayment}
+                  onClick={() => {
+                    setError('');
+                    setSuccess('');
+                    setUtr('');
+                    setShowPaymentModal(true);
+                  }}
                   disabled={loading || !isPaymentWindow}
                   className={`w-full py-3.5 text-xs font-semibold uppercase tracking-wider text-white flex items-center justify-center gap-2 ${
                     !isPaymentWindow
@@ -422,7 +436,7 @@ const ResumeBuilder = () => {
             <form onSubmit={handleSaveResume} className="space-y-6">
               {/* Profile details */}
               <div className="space-y-4">
-                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1">
+                <h4 className="text-xs font-bold text-slate-505 uppercase tracking-widest flex items-center gap-1">
                   <User size={14} className="text-brand-500" />
                   {t('personal_details')}
                 </h4>
@@ -566,7 +580,7 @@ const ResumeBuilder = () => {
 
               {/* Experiences manager */}
               <div className="space-y-3">
-                <h4 className="text-xs font-bold text-slate-550 uppercase tracking-widest flex items-center gap-1">
+                <h4 className="text-xs font-bold text-slate-555 uppercase tracking-widest flex items-center gap-1">
                   <Briefcase size={14} className="text-brand-500" />
                   {t('experience')}
                 </h4>
@@ -634,12 +648,12 @@ const ResumeBuilder = () => {
 
               {/* Skills tag manager */}
               <div className="space-y-3">
-                <h4 className="text-xs font-bold text-slate-550 uppercase tracking-widest flex items-center gap-1">
+                <h4 className="text-xs font-bold text-slate-555 uppercase tracking-widest flex items-center gap-1">
                   <Wrench size={14} className="text-brand-500" />
                   {t('skills')}
                 </h4>
 
-                <div className="flex gap-2 bg-slate-55 p-3 rounded-2xl border border-slate-200">
+                <div className="flex gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-200">
                   <input
                     type="text"
                     value={skillInput}
@@ -802,6 +816,111 @@ const ResumeBuilder = () => {
           </div>
         </div>
       )}
+
+      {/* PHONEPE ₹50 QR CODE PAYMENT MODAL */}
+      <AnimatePresence>
+        {showPaymentModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-white border border-slate-200 p-6 rounded-3xl max-w-sm w-full shadow-2xl space-y-5 text-slate-800 relative"
+            >
+              <button
+                onClick={() => setShowPaymentModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-650 transition-colors"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="text-center space-y-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-500 font-bold text-xs uppercase tracking-wider">
+                  ⚡ PhonePe Instant Checkout
+                </div>
+                <h3 className="font-bold Outfit text-base text-slate-800">
+                  Resume Builder Pass Unlock
+                </h3>
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  Scan the UPI QR code below using PhonePe or GPay, make a payment, and enter the Transaction ID / Ref Number.
+                </p>
+              </div>
+
+              {/* QR Image Container */}
+              <div className="flex flex-col items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2.5">
+                <div className="w-48 h-48 rounded-xl overflow-hidden bg-white border border-slate-200 p-2 shadow-inner flex items-center justify-center">
+                  <img
+                    src="/qr_code.jpg"
+                    alt="PhonePe UPI Payment QR Code"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Amount to Pay:</p>
+                  <p className="text-2xl font-black text-slate-900 Outfit">₹50</p>
+                </div>
+              </div>
+
+              {/* UPI ID Copy Field */}
+              <div className="space-y-1 block">
+                <label className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block">
+                  Or Transfer to UPI ID
+                </label>
+                <div className="flex bg-slate-50 border border-slate-200 rounded-xl p-2.5 items-center justify-between">
+                  <span className="text-xs font-mono font-bold text-slate-700">9390602742@ybl</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText('9390602742@ybl');
+                      setCopySuccess(true);
+                      setTimeout(() => setCopySuccess(false), 2000);
+                    }}
+                    className="text-xs text-brand-500 hover:text-brand-600 font-bold flex items-center gap-1"
+                  >
+                    {copySuccess ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
+                    <span>{copySuccess ? 'Copied!' : 'Copy'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* UTR Verification Field */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handlePayment();
+                }}
+                className="space-y-3"
+              >
+                <div>
+                  <label className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-1">
+                    Enter UPI Transaction ID / Ref Number (UTR)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={utr}
+                    onChange={(e) => setUtr(e.target.value.replace(/[^0-9]/g, ''))}
+                    placeholder="e.g. 12-digit UTR Transaction ID"
+                    className="w-full text-center text-xs font-mono bg-white border border-slate-200 focus:border-brand-500 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading || !utr}
+                  className="w-full btn-premium py-3 text-xs font-bold uppercase tracking-wider text-white flex items-center justify-center gap-1.5"
+                >
+                  {loading ? (
+                    <Loader2 className="animate-spin" size={14} />
+                  ) : (
+                    <span>Confirm & Verify Purchase</span>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

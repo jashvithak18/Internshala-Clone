@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
-      "app_name": "Elevance Internshala",
+      "app_name": "Elevance Internix",
       "welcome": "Welcome back",
       "tagline": "Discover premium internships, build community, and advance your career.",
       "login": "Login",
@@ -63,7 +63,7 @@ const resources = {
   },
   es: {
     translation: {
-      "app_name": "Elevance Internshala",
+      "app_name": "Elevance Internix",
       "welcome": "Bienvenido de nuevo",
       "tagline": "Descubra pasantías premium, cree una comunidad y avance en su carrera.",
       "login": "Iniciar Sesión",
@@ -122,7 +122,7 @@ const resources = {
   },
   hi: {
     translation: {
-      "app_name": "एलीवेंस इंटर्नशाला",
+      "app_name": "एलीवेंस इंटर्निक्स",
       "welcome": "आपका स्वागत है",
       "tagline": "प्रीमियम इंटर्नशिप खोजें, समुदाय बनाएं और अपने करियर को आगे बढ़ाएं।",
       "login": "लॉगिन करें",
@@ -181,7 +181,7 @@ const resources = {
   },
   pt: {
     translation: {
-      "app_name": "Elevance Internshala",
+      "app_name": "Elevance Internix",
       "welcome": "Bem-vindo de volta",
       "tagline": "Descubra estágios premium, construa uma comunidade e avance na sua carreira.",
       "login": "Entrar",
@@ -240,7 +240,7 @@ const resources = {
   },
   zh: {
     translation: {
-      "app_name": "Elevance Internshala",
+      "app_name": "Elevance Internix",
       "welcome": "欢迎回来",
       "tagline": "探索优质实习，建立社区，并推动您的职业发展。",
       "login": "登录",
@@ -299,7 +299,7 @@ const resources = {
   },
   fr: {
     translation: {
-      "app_name": "Elevance Internshala",
+      "app_name": "Elevance Internix",
       "welcome": "Bon retour",
       "tagline": "Découvrez des stages premium, créez une communauté et boostez votre carrière.",
       "login": "Connexion",

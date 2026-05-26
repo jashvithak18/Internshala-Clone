@@ -149,11 +149,11 @@ const Auth = () => {
       <div className="w-full max-w-lg">
         {/* Brand Banner */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 mb-4 shadow-lg shadow-indigo-500/5">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-50 border border-brand-200 text-brand-500 mb-4 shadow-sm">
             <GraduationCap size={36} />
           </div>
-          <h1 className="text-4xl font-extrabold Outfit text-slate-100 tracking-tight leading-none mb-2">
-            Elevance <span className="text-indigo-400 font-medium">Internshala</span>
+          <h1 className="text-4xl font-extrabold Outfit text-slate-800 tracking-tight leading-none mb-2">
+            Elevance <span className="text-brand-500 font-semibold">Internix</span>
           </h1>
           <p className="text-sm text-slate-400 max-w-sm mx-auto">
             {t('tagline')}

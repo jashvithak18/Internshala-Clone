@@ -10,7 +10,7 @@ export default {
         brand: {
           50: '#f0f9ff',
           100: '#e0f2fe',
-          500: '#008BDC', // Signature Internshala Blue
+          500: '#008BDC', // Signature Internix Blue
           600: '#0077c0', // Slightly darker hover blue
           700: '#0065a3',
           900: '#0c4a6e',

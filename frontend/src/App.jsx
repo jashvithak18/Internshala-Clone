@@ -27,7 +27,6 @@ import Community from './pages/Community';
 import ResumeBuilder from './pages/ResumeBuilder';
 import Billing from './pages/Billing';
 import SecurityLogs from './pages/SecurityLogs';
-import DeveloperPanel from './components/DeveloperPanel';
 import confetti from 'canvas-confetti';
 
 const App = () => {
@@ -41,8 +40,7 @@ const App = () => {
     notifications,
     markNotificationAsRead,
     markAllNotificationsAsRead,
-    istTime,
-    simulatedDevice
+    istTime
   } = useAppContext();
 
   const { t, i18n } = useTranslation();
@@ -145,9 +143,8 @@ const App = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-slate-950 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white font-sans text-slate-100">
+      <div className="bg-slate-950 min-h-screen flex flex-col justify-center selection:bg-indigo-500 selection:text-white font-sans text-slate-100">
         <Auth />
-        <DeveloperPanel />
       </div>
     );
   }
@@ -180,7 +177,8 @@ const App = () => {
 
   const unreadNotifCount = notifications.filter((n) => !n.isRead).length;
   const isMobileAccessHour = istTime.hours >= 10 && istTime.hours < 13;
-  const isMobileBlocked = simulatedDevice === 'mobile' && !isMobileAccessHour;
+  const isMobileDevice = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+  const isMobileBlocked = isMobileDevice && !isMobileAccessHour;
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex overflow-hidden">
@@ -272,7 +270,7 @@ const App = () => {
           <div className="flex items-center gap-2">
             <Shield className="text-indigo-500" size={16} />
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden md:inline">
-              Secure Sandbox System Gateways
+              Secure Internship Platform
             </span>
           </div>
 
@@ -382,16 +380,12 @@ const App = () => {
                 </div>
                 <h2 className="text-2xl font-bold Outfit text-rose-400 uppercase tracking-wide">Mobile Access Intercepted</h2>
                 <p className="text-sm text-slate-400 leading-relaxed">
-                  As per search focus safety rules, mobile device client access is permitted strictly between **10:00 AM and 1:00 PM IST**.
+                  As per platform guidelines, mobile device client access is permitted strictly between **10:00 AM and 1:00 PM IST**.
                 </p>
                 <div className="bg-slate-950/60 border border-slate-800 p-4 rounded-2xl text-xs space-y-2 text-left max-w-sm mx-auto font-mono text-indigo-300">
-                  <p className="flex justify-between"><span>Simulated Device:</span> <span className="font-bold text-pink-400">Mobile</span></p>
-                  <p className="flex justify-between"><span>Simulated IST hour:</span> <span className="font-bold text-slate-100">{istTime.hours} IST</span></p>
-                  <p className="flex justify-between"><span>Permitted slot:</span> <span className="font-bold text-emerald-400">10 AM - 1 PM IST</span></p>
+                  <p className="flex justify-between"><span>Current Simulated Time:</span> <span className="font-bold text-slate-100">{istTime.hours} IST</span></p>
+                  <p className="flex justify-between"><span>Permitted Slot:</span> <span className="font-bold text-emerald-400">10:00 AM - 1:00 PM IST</span></p>
                 </div>
-                <p className="text-xs text-slate-500 italic">
-                  💡 Tip: Swap simulated device back to "Workstation" or "MacBook" inside the Rules Simulator panel to bypass this guard!
-                </p>
               </div>
             </div>
           ) : (
@@ -481,9 +475,6 @@ const App = () => {
           </div>
         )}
       </AnimatePresence>
-
-      {/* 4. FLOATING DEV SIMULATOR PANEL */}
-      <DeveloperPanel />
 
     </div>
   );

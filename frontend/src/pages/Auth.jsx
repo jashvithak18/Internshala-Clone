@@ -5,7 +5,7 @@ import { Mail, Phone, Lock, User, Briefcase, GraduationCap, ShieldAlert, Key, Lo
 import confetti from 'canvas-confetti';
 
 const Auth = () => {
-  const { login, apiCall, istTime, simulatedDevice } = useAppContext();
+  const { login, apiCall, istTime } = useAppContext();
   const { t } = useTranslation();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -140,8 +140,9 @@ const Auth = () => {
     setError('');
   };
 
-  // Rules assessment helpers for the dashboard UI alerts
-  const isMobileLocked = simulatedDevice === 'mobile' && (istTime.hours < 10 || istTime.hours >= 13);
+  // Rules assessment helpers for the dashboard UI alerts (Authentic User-Agent check!)
+  const isMobileDevice = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+  const isMobileLocked = isMobileDevice && (istTime.hours < 10 || istTime.hours >= 13);
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center p-4 page-transition">

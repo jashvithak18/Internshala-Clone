@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 const SecurityLogs = () => {
-  const { apiCall, istTime, simulatedDevice } = useAppContext();
+  const { apiCall, istTime } = useAppContext();
   const { t } = useTranslation();
 
   const [history, setHistory] = useState([]);
@@ -48,9 +48,10 @@ const SecurityLogs = () => {
     }
   };
 
-  // Check mobile lock status
+  // Check mobile lock status (Authentic User-Agent check!)
   const isMobileAccessHour = istTime.hours >= 10 && istTime.hours < 13;
-  const isMobileRestricted = simulatedDevice === 'mobile' && !isMobileAccessHour;
+  const isMobileDevice = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+  const isMobileRestricted = isMobileDevice && !isMobileAccessHour;
 
   return (
     <div className="space-y-8 page-transition">
@@ -91,7 +92,7 @@ const SecurityLogs = () => {
             </p>
             {isMobileRestricted && (
               <span className="text-[10px] text-rose-400 font-bold block mt-2 animate-pulse-slow">
-                ⚠️ Current simulated time hour ({istTime.hours}) is outside the mobile active hours. Mobile requests will be locked out!
+                ⚠️ Current hour (${istTime.hours}) is outside the mobile active hours. Mobile access is locked out!
               </span>
             )}
           </div>

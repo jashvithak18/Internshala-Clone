@@ -27,12 +27,6 @@ export const AppProvider = ({ children }) => {
   // Socket state
   const [socket, setSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
-  
-  // Sandbox Simulator state (Helps test advanced rules easily)
-  const [simulatedDevice, setSimulatedDevice] = useState('desktop'); // desktop, laptop, mobile
-  const [simulatedBrowser, setSimulatedBrowser] = useState('Chrome'); // Chrome, Firefox, Safari
-  const [simulatedIp, setSimulatedIp] = useState('127.0.0.1');
-  const [developerPanelOpen, setDeveloperPanelOpen] = useState(true); // default open to guide user
 
   // Live IST Time Tracking
   const [istTime, setIstTime] = useState({ hours: 0, minutes: 0, seconds: 0, formatted: '' });
@@ -43,13 +37,7 @@ export const AppProvider = ({ children }) => {
       if (token) {
         try {
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const res = await axios.get(`${BACKEND_URL}/api/auth/profile`, {
-            headers: {
-              'x-device-type': simulatedDevice,
-              'x-browser-override': simulatedBrowser,
-              'x-ip-override': simulatedIp,
-            }
-          });
+          const res = await axios.get(`${BACKEND_URL}/api/auth/profile`);
           setUser(res.data);
           setIsAuthenticated(true);
           // Apply stored language preference
@@ -165,13 +153,7 @@ export const AppProvider = ({ children }) => {
   const refreshProfile = async () => {
     if (token) {
       try {
-        const res = await axios.get(`${BACKEND_URL}/api/auth/profile`, {
-          headers: {
-            'x-device-type': simulatedDevice,
-            'x-browser-override': simulatedBrowser,
-            'x-ip-override': simulatedIp,
-          }
-        });
+        const res = await axios.get(`${BACKEND_URL}/api/auth/profile`);
         setUser(res.data);
       } catch (err) {
         console.error('Refresh profile error:', err.message);
@@ -209,16 +191,13 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // Base Axios configured call with full simulator overrides injected
+  // Base Axios configured call
   const apiCall = async (method, url, data = {}, extraHeaders = {}) => {
     const config = {
       method,
       url: `${BACKEND_URL}${url}`,
       data,
       headers: {
-        'x-device-type': simulatedDevice,
-        'x-browser-override': simulatedBrowser,
-        'x-ip-override': simulatedIp,
         ...extraHeaders
       }
     };
@@ -247,17 +226,7 @@ export const AppProvider = ({ children }) => {
         setNotifications,
         markNotificationAsRead,
         markAllNotificationsAsRead,
-        istTime,
-        
-        // Sandbox features
-        simulatedDevice,
-        setSimulatedDevice,
-        simulatedBrowser,
-        setSimulatedBrowser,
-        simulatedIp,
-        setSimulatedIp,
-        developerPanelOpen,
-        setDeveloperPanelOpen
+        istTime
       }}
     >
       {children}

@@ -25,7 +25,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 const ResumeBuilder = () => {
-  const { user, apiCall, istTime, refreshProfile } = useAppContext();
+  const { user, apiCall, istTime, refreshProfile, setActiveTab } = useAppContext();
   const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
@@ -329,7 +329,7 @@ const ResumeBuilder = () => {
           <div className="pt-2">
             <button
               onClick={() => {
-                alert('Please select an active Plan in the Subscriptions tab first.');
+                setActiveTab('billing');
               }}
               className="inline-flex items-center gap-2 btn-premium text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-wider rounded-xl shadow-lg"
             >

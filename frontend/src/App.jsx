@@ -40,12 +40,12 @@ const App = () => {
     notifications,
     markNotificationAsRead,
     markAllNotificationsAsRead,
-    istTime
+    istTime,
+    activeTab,
+    setActiveTab
   } = useAppContext();
 
   const { t, i18n } = useTranslation();
-
-  const [activeTab, setActiveTab] = useState('feed'); // feed, resume, billing, logs
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);

@@ -24,6 +24,9 @@ export const AppProvider = ({ children }) => {
   const [friends, setFriends] = useState([]);
   const [pendingRequests, setPendingRequests] = useState([]);
 
+  // Active Navigation Tab State
+  const [activeTab, setActiveTab] = useState('feed');
+
   // Socket state
   const [socket, setSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
@@ -226,7 +229,9 @@ export const AppProvider = ({ children }) => {
         setNotifications,
         markNotificationAsRead,
         markAllNotificationsAsRead,
-        istTime
+        istTime,
+        activeTab,
+        setActiveTab
       }}
     >
       {children}

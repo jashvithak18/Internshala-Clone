@@ -10,6 +10,9 @@ export const useAppContext = () => useContext(AppContext);
 export const AppProvider = ({ children }) => {
   const { i18n } = useTranslation();
   
+  // centralize the backend API URL (supports environment override)
+  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  
   // Auth state
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || null);
@@ -40,7 +43,7 @@ export const AppProvider = ({ children }) => {
       if (token) {
         try {
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const res = await axios.get('http://localhost:5000/api/auth/profile', {
+          const res = await axios.get(`${BACKEND_URL}/api/auth/profile`, {
             headers: {
               'x-device-type': simulatedDevice,
               'x-browser-override': simulatedBrowser,
@@ -90,7 +93,7 @@ export const AppProvider = ({ children }) => {
   // Configure Socket.IO
   useEffect(() => {
     if (user && token) {
-      const socketClient = io('http://localhost:5000');
+      const socketClient = io(BACKEND_URL);
       setSocket(socketClient);
 
       // Join User's unique room for private events
@@ -162,7 +165,7 @@ export const AppProvider = ({ children }) => {
   const refreshProfile = async () => {
     if (token) {
       try {
-        const res = await axios.get('http://localhost:5000/api/auth/profile', {
+        const res = await axios.get(`${BACKEND_URL}/api/auth/profile`, {
           headers: {
             'x-device-type': simulatedDevice,
             'x-browser-override': simulatedBrowser,
@@ -179,7 +182,7 @@ export const AppProvider = ({ children }) => {
   // Notification Operations
   const fetchNotifications = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/notifications');
+      const res = await axios.get(`${BACKEND_URL}/api/notifications`);
       setNotifications(res.data);
     } catch (err) {
       console.error('Fetch notifications error:', err.message);
@@ -188,7 +191,7 @@ export const AppProvider = ({ children }) => {
 
   const markNotificationAsRead = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/notifications/${id}/read`);
+      await axios.put(`${BACKEND_URL}/api/notifications/${id}/read`);
       setNotifications((prev) =>
         prev.map((n) => (n._id === id ? { ...n, isRead: true } : n))
       );
@@ -199,7 +202,7 @@ export const AppProvider = ({ children }) => {
 
   const markAllNotificationsAsRead = async () => {
     try {
-      await axios.put('http://localhost:5000/api/notifications/read-all');
+      await axios.put(`${BACKEND_URL}/api/notifications/read-all`);
       setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
     } catch (err) {
       console.error(err.message);
@@ -210,7 +213,7 @@ export const AppProvider = ({ children }) => {
   const apiCall = async (method, url, data = {}, extraHeaders = {}) => {
     const config = {
       method,
-      url: `http://localhost:5000${url}`,
+      url: `${BACKEND_URL}${url}`,
       data,
       headers: {
         'x-device-type': simulatedDevice,
